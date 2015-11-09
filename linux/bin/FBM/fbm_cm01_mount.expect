@@ -1,0 +1,18 @@
+#!/usr/bin/expect -f
+
+#mount cm01 software repository
+
+# Se definen la svariables USERNAME y PASS con el valor de los parametros que recibe el script.
+set USERNAME [lindex $argv 0]
+set PASS [lindex $argv 1]
+
+# Montar //fbmcm01/software en /home/sysop/fs con los credenciales del usuario pasado como parametro
+spawn mount.cifs //xx.tt.rr.uu/software /home/sysop/fs -o username=$USERNAME
+#spawn mount -t cifs //84.88.79.25/software /home/sysop/fs -o username=$USERNAME
+# Con la orden expect, indicamos la cadena de texto que esperamso que aparezca y con send, 
+# se envia el parametro que queremso introducir de forma automatica
+expect "Password:^"
+sleep 5
+send "$PASS\n"
+
+expect eof

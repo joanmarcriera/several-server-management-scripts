@@ -1,0 +1,20 @@
+#!/usr/bin/expect -f
+
+# Script de expect. Script pide pasar parametros en la instalacion de l aaplicacion QAS
+# Con expect, esos parametros se pasan de forma automatica.
+#echo "dentro expect"
+
+
+# Se definen la svariables USERNAME y PASS con el valor de los parametros que recibe el script.
+set USERNAME [lindex $argv 0]
+set PASS [lindex $argv 1]
+
+# ejecutar el fichero ./install.sh del instalador de QAS
+spawn /opt/quest/bin/vastool -u $USERNAME join corp.EDITEDMYDOMAINNAME.org
+# contestar las preguntas de la instalacion de QAS de forma desatendida
+sleep 1
+expect "CORP.EDITEDMYDOMAINNAME.ORG:*" 
+sleep 1
+send "$PASS\r"
+sleep 60
+
